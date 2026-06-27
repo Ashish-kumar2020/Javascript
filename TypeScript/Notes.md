@@ -17,3 +17,33 @@ String (Uppercase): This is a Global Object Wrapper or constructor. It creates a
 ## Note : let role = "admin";
 if we declared the value with let and a string is assigned to then the type will we string beacause let value can be re-intialize so this will be a string
 but if it is decalred using const then its type will be "admin"
+
+
+## Difference between interface and types
+1 - Interfcae can be extended after their initial declaration, which is not possible with types
+2 - Both can be extended but interface offer a more natural syntax that aligns better with object oriented programing 
+
+Use `interface` for defining object shapes and class contracts, especially when you might need to extend them later.
+- Use `type` for unions, intersections, and complex type manipulations.
+
+
+## Performance Considerations
+While the difference is minimal for most applications, interfaces can offer slightly better performance in the TypeScript compiler because they only need to maintain references to their names, while types need to create new object types each time they’re used.
+
+
+# Important :
+
+// most important feature of interface which union can not do is
+// if we have to interface of same name then they got merged
+interface name {
+    name: string
+}
+
+interface name { 
+    age:  number;
+}
+
+const person: name = {
+    name: "Asjo",
+    age: 27
+}
