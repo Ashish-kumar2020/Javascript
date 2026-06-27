@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+
+        // const fs = require('fs')
+      // console.log(a)
+
+      // let a = 10;
+
+      let obj = {
+        a: 1,
+        b: 2,
+        c: 3,
+      };
+
+      // for(const [key,value] of Object.entries(obj)){
+      //     console.log(key,value)
+      // }
+
+      const sumarr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      function sum(...numbers) {
+        return numbers.reduce((acc, curr) => acc + curr, 0);
+      }
+      // console.log(sum(...sumarr))
+
+      function add(a, b, ...c) {
+        const sum = c.reduce((acc, curr) => acc + curr, 0);
+        return a + b + sum;
+      }
+
+      // console.log(add.call(null,1,2));
+      // console.log(add.apply(null,[1,2,3,4,5,6,7]))
+
+      function factorial(n) {
+        if (n == 0) {
+          return 1;
+        }
+        return n * factorial(n - 1);
+      }
+      // console.log(factorial(4))
+
+      // ----------- Shallow Copy vs Depp Copy ----------------
+      // Shallow Copy
+      const data = { a: 1, b: { c: 1 } };
+      let shallowCopy = Object.assign({}, data);
+      console.log(shallowCopy);
+      shallowCopy.b.c = 3;
+      console.log(data.b.c);
+
+      //  Deep Copy
+      let obj2 = { a: 10, b: { c: 100 } };
+      let deepCopy = JSON.parse(JSON.stringify(data));
+      deepCopy.b.c = 1000;
+      console.log(deepCopy);
+      console.log(obj2);
+
+      // Spread Operator
+      const arr1 = [1, 2, 3, 4];
+      const arr2 = [...arr1, 6, 778, 8];
+      // console.log(arr2)
+
+      //  Check object property exists or not
+      if (obj2.hasOwnProperty("as")) {
+        console.log("Property Exists");
+      } else {
+        console.log("Property Does not Exists");
+      }
+
+      // ----------- Mutable and Immutable Objects ---------------
+      const obj3 = Object.freeze({
+        a: "Ashish",
+        b: "Singh",
+      });
+      obj3.b = "Kumar";
+      obj2.a = "300";
+      console.log(obj3);
+      console.log(obj2);
+
+      // ---------- Destructring ------------
+      // For Arrays
+      const [a, b] = [1, 2];
+
+      // For Objects
+      const { c, d } = { c: 1, d: 2 };
+
+      console.log(a, b, c, d);
+
+      // Object.seal
+      const obj4 = { name: "Ashuuu" };
+      Object.seal(obj4);
+      obj4.age = 26;
+      // console.log(obj4)
+
+      const person = {
+        _name: "Ashish",
+
+        get name() {
+          return this._name;
+        },
+
+        set name(newName) {
+          if (newName.trim().length > 0) {
+            this._name = newName;
+          } else {
+            console.log("Invalid Name");
+          }
+        },
+      };
+
+      // console.log(person.name);
+      person._name = "John Doe";
+      // console.log(person.name)
+
+      // ------- Check wheather an object is empty or not
+      let obj5 = {};
+      const isEmpty = (obj) => Object.keys(obj).length === 0;
+      console.log(isEmpty(obj5));
+
+      const num = [1, 2, 3, 4];
+      const doubled = num.map((num) => num * 2);
+      console.log(doubled);
+
+      const promise1 = new Promise((resolve,reject) => {
+        setTimeout(resolve,1000, 1)
+      })
+      const promise2 = new Promise((resolve,reject) => {
+        setTimeout(resolve,2000,3)
+      })
+      const promise3 = new Promise((resolve,reject) => {
+        setTimeout(reject,3000,2)
+      });
+
+      Promise.allSettled([promise1,promise2,promise3]).then((value) => {
+        console.log(value)
+      });
+
+      async function datafetch(){
+        try{
+            let res = await fetch();
+            const data = await res;
+            console.log(data)
+        } catch(error){
+            console.log("Error while fetching the data : ",error)
+        }
+      }
+    //   datafetch()
+
+    // fs.readFile(__filename, ()=> {
+    //     setTimeout(() => console.log("settimeout",0));
+    //     setImmediate(() => console.log("setImmediate"))
+    // })
+
+    function Person(age,name){
+        this.name = name;
+        this.age = age;
+    }
+
+    const ashish = new Person('Ashu',26);
+    // console.log(ashish)
+
+    function createCOunter(){
+        let count = 0;
+
+        return {
+            increment: function(){
+                count++;
+                return;
+            },
+            decrement: function(){
+                count--;
+                return;
+            },
+            getCount : function(){
+                return count;
+            }
+        }
+    }
+
+    const counter = createCOunter();
+    console.log(counter.increment()); // 0 -> 1
+    console.log(counter.decrement()); // 1 -> 0
+    console.log(counter.increment()); // 0 -> 1
+    console.log(counter.increment()) // 1 -> 2
+    console.log(counter.getCount())
+
+
+
+    function debounce(func,delay){
+        let timeout;
+        return function(...args){
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                func.apply(this,args)
+            },delay);
+        }
+    }
+    const debounceGrre = debounce((userName,age,fullname) => {
+        console.log("jdeidelfd",userName,age,fullname)
+    },2000)
+
+    debounceGrre("ashsh",26,"sdjf")
+
+    function throttle(func, limit){
+        let inThrottle;
+        return function(...args){
+            if(!inThrottle){
+                func.apply(this,args);
+                inThrottle = true;
+                setTimeout( () => (inThrottle = false),limit)
+            }
+        }
+    }
+    const handleResize = throttle(() => {
+        console.log("Rezie triggered")
+    },2000)
+    </script>
+  </body>
+</html>
