@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function infiniteCurying(a,b){
+            return function  (b){
+                if(b === undefined){
+                    return a;
+                }
+                return infiniteCurying(a + b);
+            }
+        }
+
+        console.log(infiniteCurying(10)(20)(30)(40)())
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function greet() {
+        console.log("Hello");
+      }
+
+      function execute(fn) {
+        console.log(fn);
+        // fn();
+      }
+
+      //   execute(greet);
+
+      function outer() {
+        return function () {
+          console.log("Hello");
+        };
+      }
+      const fn = outer;
+      //  console.log(fn()())
+
+      function greets() {
+        console.log("Hello");
+      }
+
+      const another = greets;
+      //   console.log(another === greets)
+      //  console.log("absd" ,greets());
+
+      //   another();
+
+      function abc() {
+        console.log("abcdefhgh");
+      }
+      // const output = abc();
+      // console.log("output",output)
+
+      function outer() {
+        console.log("Outer");
+
+        return function () {
+          console.log("Inner");
+        };
+      }
+
+      // outer()();
+      // console.log(outer())
+
+      function add(a, b) {
+        return a + b;
+      }
+
+      function calculate(x, y, operation) {
+        console.log(operation())
+        return operation(x, y);
+      }
+
+    //   console.log(calculate(10, 20, add));
+
+    function greet() {
+    console.log("Hello");
+}
+
+// setTimeout(greet, 1000);
+// const getUser = () =>  ({name: "Ashu", age : 24})
+
+const getUser = () => ({
+    name: "Ashu"
+})
+// console.log(getUser())
+
+function outer() {
+    let count = 0;
+
+    function inner() {
+        count++;
+        console.log(count);
+    }
+
+    return inner;
+}
+
+// const fnc = outer();
+// console.log(fnc)
+// fnc();
+// fnc();
+// fnc();
+
+
+function createBalance(){
+    let balance = 1000;
+    return {
+        deposit(amount){
+            balance += amount;
+        },
+        withdraw(amount) {
+
+            balance -= amount;
+
+        },
+
+        getBalance() {
+
+            return balance;
+
+        }
+    }
+}
+
+const account = createBalance();
+console.log(account.getBalance())
+account.deposit(10000);
+console.log(account.getBalance())
+    </script>
+  </body>
+</html>

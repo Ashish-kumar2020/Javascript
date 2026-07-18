@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // function square(n){
+        //     console.log("Calulation");
+        //     return n * n;
+        // }
+
+        // console.log(square(5));
+
+
+        function memoizeSquare(){
+            let cache = {};
+            return function (n){
+                if(cache[n]){
+                    console.log("From Cached");
+                     return cache[n];
+                }
+
+                console.log("calucating");
+                cache[n] = n * n;
+                return cache[n];
+            }
+        }
+    //     const square = memoizeSquare();
+    //    square(5)
+    //      square(5)
+    //    square(6)
+    //     square(6)
+
+
+    // Once Function -> which is executed only once rest calls are ignored
+    function greetOnce(fn){
+        let isExecuted = false;
+        return function (){
+            if(isExecuted){
+                return;
+            }
+            isExecuted = true;
+            return fn();
+        }
+    }
+
+    const greet = greetOnce(() => {
+        console.log("Heeeloooo")
+    })
+
+    // console.log(greet())
+    //    console.log(greet())
+    //       console.log(greet())
+    //          console.log(greet())
+    greet();
+    greet();
+    greet();
+    greet();
+    greet();
+    greet();
+        
+    </script>
+</body>
+</html>
