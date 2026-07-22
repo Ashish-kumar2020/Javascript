@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise</title>
+  </head>
+  <body>
+    <script>
+      const promise = Promise.resolve("Success");
+
+      promise
+        .then((value) => console.log(value))
+        .finally(() => console.log("Cleanup"));
+
+      Promise.reject("Error")
+        .catch((err) => console.log(err))
+        .finally(() => console.log("Cleanup"));
+
+      //   promise.then((value) => console.log(value));
+    </script>
+  </body>
+</html>
